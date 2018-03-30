@@ -1,8 +1,8 @@
 #!groovy​
 podTemplate(label: 'pod-hugo-app', containers: [
-    containerTemplate(name: 'hugo', image: 'chauwei150/hugo', ttyEnabled: true, command: 'cat'),
-    containerTemplate(name: 'html-proofer', image: 'chauwei150/html-proofer', ttyEnabled: true, command: 'cat'),
-    containerTemplate(name: 'kubectl', image: 'chauwei150/kubectl', ttyEnabled: true, command: 'cat',
+    containerTemplate(name: 'hugo', image: 'smesch/hugo', ttyEnabled: true, command: 'cat'),
+    containerTemplate(name: 'html-proofer', image: 'smesch/html-proofer', ttyEnabled: true, command: 'cat'),
+    containerTemplate(name: 'kubectl', image: 'smesch/kubectl', ttyEnabled: true, command: 'cat',
         volumes: [secretVolume(secretName: 'kube-config', mountPath: '/root/.kube')]),
     containerTemplate(name: 'docker', image: 'docker', ttyEnabled: true, command: 'cat',
         envVars: [containerEnvVar(key: 'DOCKER_CONFIG', value: '/tmp/'),])],
@@ -13,7 +13,7 @@ podTemplate(label: 'pod-hugo-app', containers: [
     node('pod-hugo-app') {
 
         def DOCKER_HUB_ACCOUNT = 'chauwei150'
-        def DOCKER_IMAGE_NAME = 'jenkins-kubernetes-leader'
+        def DOCKER_IMAGE_NAME = 'hugo-app-jenkins'
         def K8S_DEPLOYMENT_NAME = 'hugo-app'
 
         stage('Clone Hugo App Repository') {
